@@ -1,0 +1,18 @@
+
+
+tr, td {
+    border: 1px solid black;
+    width: 30px;
+    height: 30px;
+}
+
+
+.alive {
+    background-color: #56a0d3;
+    border: 1px solid #eaf207;
+    cursor: auto
+}
+
+.dead {
+    color: #CCC;
+}
