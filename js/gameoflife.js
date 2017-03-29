@@ -37,9 +37,11 @@ function countHabitableWorlds(world) {
 function liveOrDie(world) {
     hwcount = 0
     let livingWorlds = countHabitableWorlds(world);
+    console.log(livingWorlds);
     for(var i = 0; i < livingWorlds.length; i++) {
       if(world.hasClass("alive") && livingWorlds[i].hasClass("alive")) {
       hwcount++
+      console.log("HWCount: "+ hwcont);
       }
     }
 
@@ -49,7 +51,7 @@ function liveOrDie(world) {
     }
 
 // function to draw the grid of size X Y
-function drawGrid(x,y, start) {
+function drawGrid(x,y) {
     //table for grid
     let $grid = $('<table>');
     //rows
@@ -60,21 +62,40 @@ function drawGrid(x,y, start) {
       for(var j = 0; j < x; j++) {
           let $world = $('<td>');
           $row.append($world);
-          if(!start){
-            $world.on('click', livingWorld);
+          $world.on('click', livingWorld);
           }
         }
-      }
     //add to dom
-    $('.gameBoard').append($grid);
+    $('#gameBoard').append($grid);
 }
 
-function runGame(x, y) {
-    drawGrid(x, y, start);
-    while(start);
-       liveOrDie()
-       drawGrid(x, y, stop)
-
+function updateGrid(x,y, stop=false) {
+    //table for grid
+    while(!stop) {
+        let $grid = $('<table>');
+        //rows
+        for(var i = 0; i < y; i++) {
+          let $row = $('<tr>');
+          $grid.append($row);
+          //cols
+          for(var j = 0; j < x; j++) {
+              let $world = $('<td>');
+              $row.append($world);
+              liveOrDie($world);
+              }
+            }
+       //add to dom
+       $('#gameBoard').append($grid);
+   }
 }
+
+function startLife() {
+    console.log("hi");
+    let $startLink = $("<a>");
+    $startLink.on('click', updateGrid(10,10, false))
+    $('#startLink').append($start);
+}
+
 //what will become the game loop
-runGame(10, 10, start);
+drawGrid(10,10);
+startLife();
