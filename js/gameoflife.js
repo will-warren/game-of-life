@@ -74,8 +74,14 @@ function drawGrid(x,y) {
 }
 
 function updateGrid(x,y, stop=false) {
+    $('#stopBtn').click(function() {
+        stop = true;
+    });
+    $('#startBtn').click(function() {
+        stop = false;
+    });
     //table for grid
-    while(!stop) {
+    while(!stop) {  // this looop is causing a major problem. need to find another way. 
         let $grid = $('<table>');
         //rows
         for(var i = 0; i < y; i++) {
