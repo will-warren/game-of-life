@@ -3,15 +3,18 @@
   <head>
     <meta charset="utf-8">
     <title>The Game of Life</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/main.css">
+    <link rel=stylesheet type="text/css" href='https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css'/>
 </head>
 <body>
-   <div id = "bigbox">
-   <h3 id="banner">Conway's Game of Life</h3>
-   <div id="gameBoard"></div>
-   <div id="startLink"><a  href="#">Start!</a></div>
-   <div>
+    <div class="container">
+       <div class = "row" id = "bigbox">
+       <h3 id="banner">Conway's Game of Life</h3>
+       <div id="gameBoard"></div>
+       <button id="startBtn">Start!</button>
+       <button id='stopBtn'>Stop!</button>
+       </div>
+   </div>
 
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="js/gameoflife.js"></script>

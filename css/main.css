@@ -1,5 +1,8 @@
 body {
-    width: 100%;
+    width: auto;
+}
+
+#gameBoard {
     margin: 0 auto;
 }
 
@@ -17,10 +20,18 @@ tr, td {
 }
 
 .dead {
-    color: #CCC;
+    color: #gray;
 }
 
-#startLink:a {
+.bigbox {
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+#startBtn:a {
     border: 3px solid light-gray;
     color: #FFF;
     background-color: gray;

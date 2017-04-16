@@ -11,13 +11,14 @@ function livingWorld(e) {
     //get target
     $src = $(e.target);
     //give life
+    $src.removeClass('dead');
     $src.addClass("alive");
 }
 
 
-function countHabitableWorlds(world) {
-    let y = world.parentNode.rowIndex;
-    let x = world.cellIndex
+function countHabitableWorlds(j,i) {
+    let y = j;
+    let x = i
     let xe = x-1;
     let xw = x+1;
     let yn = y-1;
@@ -34,21 +35,22 @@ function countHabitableWorlds(world) {
     return [ne,n,nw,e,w,se,s,sw];
 }
 
-function liveOrDie(world) {
+function liveOrDie(j, i) {    //this is where you solve the problem. need to apply alive or dead class based on rules of the game of life.
     hwcount = 0
-    let livingWorlds = countHabitableWorlds(world);
-    console.log(livingWorlds);
-    for(var i = 0; i < livingWorlds.length; i++) {
-      if(world.hasClass("alive") && livingWorlds[i].hasClass("alive")) {
-      hwcount++
-      console.log("HWCount: "+ hwcont);
+    let livingWorlds = countHabitableWorlds(j,i);
+    //console.log(livingWorlds);
+    for(var start = 0; start < livingWorlds.length; start++) {
+      if($(livingWorlds[start]).hasClass("alive")) {
+        hwcount++
+        console.log("HWCount: "+ hwcont);
       }
     }
-
-    if((hwcount <= 1) || (hwcount > 3)) {
-        world.addClass("dead");
+    for(var _ = 0; _ < livingWorlds.length; _++) {
+        if((hwcount <= 1) || (hwcount > 3)) {
+            $(livingWorlds[i]).addClass("dead");
       }
     }
+}
 
 // function to draw the grid of size X Y
 function drawGrid(x,y) {
@@ -63,6 +65,8 @@ function drawGrid(x,y) {
           let $world = $('<td>');
           $row.append($world);
           $world.on('click', livingWorld);
+          $world.attr('id', 'cell_' + j + '_' + i);
+          $world.attr('class', 'dead')
           }
         }
     //add to dom
@@ -81,21 +85,22 @@ function updateGrid(x,y, stop=false) {
           for(var j = 0; j < x; j++) {
               let $world = $('<td>');
               $row.append($world);
-              liveOrDie($world);
+              $world.attr('id', 'cell_' + j + '_' + i);
+              liveOrDie(j,i);
               }
             }
        //add to dom
+       $('#gameBoard').empty()
        $('#gameBoard').append($grid);
    }
 }
 
-function startLife() {
-    console.log("hi");
-    let $startLink = $("<a>");
-    $startLink.on('click', updateGrid(10,10, false))
-    $('#startLink').append($start);
-}
+$('#startBtn').on('click', function() {
+  setInterval(updateGrid(10,10), 2000);
+})
 
+$('#stopBtn').on('click', function() {
+   updateGrid(10,10, true);
+ })
 //what will become the game loop
 drawGrid(10,10);
-startLife();
