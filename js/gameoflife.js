@@ -11,14 +11,14 @@ function livingWorld(e) {
     //get target
     $src = $(e.target);
     //give life
-    $src.removeClass('dead');
+    //$src.removeClass('dead');
     $src.addClass("alive");
 }
 
 
-function countHabitableWorlds(j,i) {
-    let y = j;
-    let x = i
+function countHabitableWorlds(j,i) {   //ASK SAM: how do I make this not run off the
+    let y = j;                      // edge of th grid?
+    let x = i                       // how does it stay inbounds?
     let xe = x-1;
     let xw = x+1;
     let yn = y-1;
@@ -35,20 +35,20 @@ function countHabitableWorlds(j,i) {
     return [ne,n,nw,e,w,se,s,sw];
 }
 
-function liveOrDie(j, i) {    //this is where you solve the problem. need to apply alive or dead class based on rules of the game of life.
+function liveOrDie(j, i) {
     hwcount = 0
     let livingWorlds = countHabitableWorlds(j,i);
-    //console.log(livingWorlds);
-    for(var start = 0; start < livingWorlds.length; start++) {
-      if($(livingWorlds[start]).hasClass("alive")) {
+    console.log(livingWorlds);
+    for(var _ = 0; _ < livingWorlds.length; start++) {
+      if($('#'+livingWorlds[_]).hasClass("alive")) {
         hwcount++
-        console.log("HWCount: "+ hwcont);
+        console.log("HWCount: "+ hwcount + " at " + livingWorlds[start]);
       }
     }
-    for(var _ = 0; _ < livingWorlds.length; _++) {
-        if((hwcount <= 1) || (hwcount > 3)) {
-            $(livingWorlds[i]).addClass("dead");
-      }
+    if((hwcount <= 1) || (hwcount > 3)) {
+      $('#'+livingWorlds[_]).addClass("dead");
+    } else if (hwcount == 2 || hwcount == 3) {
+      $('#'+livingWorlds[_].toggleClass('alive'));
     }
 }
 
@@ -66,47 +66,42 @@ function drawGrid(x,y) {
           $row.append($world);
           $world.on('click', livingWorld);
           $world.attr('id', 'cell_' + j + '_' + i);
-          $world.attr('class', 'dead')
+        //  $world.attr('class', 'dead')
           }
         }
     //add to dom
     $('#gameBoard').append($grid);
 }
 
-function updateGrid(x,y, stop=false) {
-    $('#stopBtn').click(function() {
-        stop = true;
-    });
-    $('#startBtn').click(function() {
-        stop = false;
-    });
-    //table for grid
-    while(!stop) {  // this looop is causing a major problem. need to find another way. 
-        let $grid = $('<table>');
-        //rows
-        for(var i = 0; i < y; i++) {
-          let $row = $('<tr>');
-          $grid.append($row);
-          //cols
-          for(var j = 0; j < x; j++) {
-              let $world = $('<td>');
-              $row.append($world);
-              $world.attr('id', 'cell_' + j + '_' + i);
-              liveOrDie(j,i);
-              }
-            }
-       //add to dom
-       $('#gameBoard').empty()
-       $('#gameBoard').append($grid);
-   }
-}
+function updateGrid(x,y) {
 
-$('#startBtn').on('click', function() {
-  setInterval(updateGrid(10,10), 2000);
+    //table for grid
+    let $grid = $('<table>');
+    //rows
+    for(var i = 0; i < y; i++) {
+      let $row = $('<tr>');
+      $grid.append($row);
+      //cols
+      for(var j = 0; j < x; j++) {
+          let $world = $('<td>');
+          $row.append($world);
+          $world.attr('id', 'cell_' + j + '_' + i);
+          liveOrDie(j,i);
+          }
+        }
+   //add to dom
+   $('#gameBoard').empty()
+   $('#gameBoard').append($grid);
+   }
+
+$('#startBtn').click(function(event) {
+    event.preventDefault();
+    console.log('start')
+    //$rowcol = $("#size :input");
+    //console.log($rowcol)
+    updateGrid(7,7);
 })
 
-$('#stopBtn').on('click', function() {
-   updateGrid(10,10, true);
- })
+
 //what will become the game loop
-drawGrid(10,10);
+drawGrid(7,7);

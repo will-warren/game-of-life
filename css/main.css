@@ -1,5 +1,8 @@
 body {
     width: auto;
+    display: flex;
+    justify-content: center;
+    align-content: space-between;;
 }
 
 #gameBoard {
@@ -31,7 +34,7 @@ tr, td {
 
 }
 
-#startBtn:a {
+#startBtn a {
     border: 3px solid light-gray;
     color: #FFF;
     background-color: gray;
