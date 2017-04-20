@@ -1,59 +1,85 @@
-//gameoflife js file
-let start = false;
-let stop = false;
-
 //get world
 function getWorld(x,y) {
-    return("cell_" + x + '_' + y);
+    return $("#cell_" + x + '_' + y);
 }
+
 //give life to world
 function livingWorld(e) {
     //get target
     $src = $(e.target);
     //give life
-    //$src.removeClass('dead');
-    $src.addClass("alive");
+    $src.toggleClass("alive");
 }
 
 
-function countHabitableWorlds(j,i) {   //ASK SAM: how do I make this not run off the
-    let y = j;                      // edge of th grid?
-    let x = i                       // how does it stay inbounds?
+function countHabitableWorlds(j,i) {
+    let y = i;
+    let x = j
     let xe = x-1;
     let xw = x+1;
     let yn = y-1;
     let ys = y+1;
-    let ne = getWorld(xe, yn);
-    let n  = getWorld(x,  yn);
-    let nw = getWorld(xw, yn);
-    let e  = getWorld(xe, y);
-    let w  = getWorld(xw,  y);
-    let se = getWorld(xe, ys);
-    let s  = getWorld(x,  ys);
-    let sw = getWorld(xw, ys);
+    let ne = getWorld(xe, yn).hasClass('alive');
+    let n  = getWorld(x,  yn).hasClass('alive');
+    let nw = getWorld(xw, yn).hasClass('alive');
+    let e  = getWorld(xe,  y).hasClass('alive');
+    let w  = getWorld(xw,  y).hasClass('alive');
+    let se = getWorld(xe, ys).hasClass('alive');
+    let s  = getWorld(x,  ys).hasClass('alive');
+    let sw = getWorld(xw, ys).hasClass('alive');
 
-    return [ne,n,nw,e,w,se,s,sw];
+    // return [ne,n,nw,e,w,se,s,sw];
+    return ne + n + nw + e + w + se + s + sw;
 }
 
-function liveOrDie(j, i) {
-    hwcount = 0
-    let livingWorlds = countHabitableWorlds(j,i);
-    console.log(livingWorlds);
-    for(var _ = 0; _ < livingWorlds.length; start++) {
-      if($('#'+livingWorlds[_]).hasClass("alive")) {
-        hwcount++
-        console.log("HWCount: "+ hwcount + " at " + livingWorlds[start]);
+
+function updateGrid(x,y) {
+    x = 7;
+    y = 7;
+    //table for grid
+    let $grid = $('<table>');
+    //rows
+    for(var i = 0; i < y; i++) {
+      let $row = $('<tr>');
+      $grid.append($row);
+      //cols
+      for(var j = 0; j < x; j++) {
+          let $world = $('<td>');
+          $row.append($world);
+          $world.attr('id', 'cell_' + j + '_' + i);
+          let friends = countHabitableWorlds(j,i);
+          if ( (friends == 2 && getWorld(j,i).hasClass('alive')) || friends == 3){
+              $world.addClass('alive')
+          }
       }
     }
-    if((hwcount <= 1) || (hwcount > 3)) {
-      $('#'+livingWorlds[_]).addClass("dead");
-    } else if (hwcount == 2 || hwcount == 3) {
-      $('#'+livingWorlds[_].toggleClass('alive'));
-    }
+   //add to dom
+   $('#gameBoard').empty()
+   $('#gameBoard').append($grid);
 }
+//set all the buttons
+$('#startBtn').click(function(event) {
+    event.preventDefault();
+    let gameOfLife = setInterval(updateGrid, 200);
+    $('#stopBtn').click(function(event){
+        event.preventDefault();
+        clearInterval(gameOfLife);
+    })
+})
+
+
+
+$('#clear').click(function(event) {
+    event.preventDefault();
+    $('#gameBoard').empty();
+    drawGrid();
+})
+
 
 // function to draw the grid of size X Y
-function drawGrid(x,y) {
+function drawGrid() {
+    x = 7;
+    y = 7;
     //table for grid
     let $grid = $('<table>');
     //rows
@@ -73,35 +99,5 @@ function drawGrid(x,y) {
     $('#gameBoard').append($grid);
 }
 
-function updateGrid(x,y) {
-
-    //table for grid
-    let $grid = $('<table>');
-    //rows
-    for(var i = 0; i < y; i++) {
-      let $row = $('<tr>');
-      $grid.append($row);
-      //cols
-      for(var j = 0; j < x; j++) {
-          let $world = $('<td>');
-          $row.append($world);
-          $world.attr('id', 'cell_' + j + '_' + i);
-          liveOrDie(j,i);
-          }
-        }
-   //add to dom
-   $('#gameBoard').empty()
-   $('#gameBoard').append($grid);
-   }
-
-$('#startBtn').click(function(event) {
-    event.preventDefault();
-    console.log('start')
-    //$rowcol = $("#size :input");
-    //console.log($rowcol)
-    updateGrid(7,7);
-})
-
-
-//what will become the game loop
-drawGrid(7,7);
+//draw inital grid
+drawGrid();

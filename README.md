@@ -1,6 +1,8 @@
-# game-of-life
+# Conway's Game of Life
 
-# # file repository: gameoflife
+## file repository: gameoflife
+
+#### Using jQuery, I've developed a visualization of [Conway's Game of Life] (https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life)
 
 Files and Notes
 1. README.md
@@ -9,11 +11,8 @@ Files and Notes
   - the html file for this assignment. Open in any web browser, check file path to ensure
   correctness and accuracy.
 3. css
-  - directory for css files. they are linked to in the html doc and shouldn't need much attention
+  - main.css, basic css file for this project.
 4. js
-  - directory for js files, which are also linked in html doc and shouldn't need much attention
-5. images
-  - directory for images, which may not be used on this project
+  - gameoflife.js.  
 
-
-For any questions, comments, or errors please contact me.
+  [Will Warren] (http://willwile4.github.io)

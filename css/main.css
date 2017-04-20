@@ -1,9 +1,4 @@
-body {
-    width: auto;
-    display: flex;
-    justify-content: center;
-    align-content: space-between;;
-}
+
 
 #gameBoard {
     margin: 0 auto;
@@ -28,15 +23,4 @@ tr, td {
 
 .bigbox {
     margin: 0 auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-}
-
-#startBtn a {
-    border: 3px solid light-gray;
-    color: #FFF;
-    background-color: gray;
-    padding: 20px 50px 20px 50px;
 }
