@@ -26,6 +26,10 @@ or
 
 See it live: [Conway's Game of Life](https://willwile4.githut.io/conway.html)
 
+3. Select inital population by turning cells blue.
+4. Click start and watch it go!
+5. Click 'stop' before clearing board..
+
 ### Files
 
 1. README.md
