@@ -18,14 +18,20 @@ For my portfolio and contact information please visit: [Will Warren](http://will
 2. Implement a mathematical theory via code. Consider thinking about the function
 names in terms of worlds or ticks instead of cells. Look for different solutions.
 
+## How to run
+1. Clone this repository
+2. Open it's absolute path in your web browser
+
+or
+
+See it live: [Conway's Game of Life](https://willwile4.githut.io/conway.html)
+
 ### Files
 
 1. README.md
   - this file
 2. index.html
-  - Open in any web browser, check file path to ensure
-  correctness and accuracy.
-  - You can also see it live at [Conway's Game of Life](https://willwile4.githut.io/conway.html)
+
 3. css
   - main.css, stylesheet
 4. js
@@ -33,4 +39,4 @@ names in terms of worlds or ticks instead of cells. Look for different solutions
 
 ### Notes
 
-- At times, the ability to start a new evolution doesn't work smoothly. 
+- At times, the ability to start a new evolution doesn't work smoothly.
