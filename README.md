@@ -24,7 +24,7 @@ names in terms of worlds or ticks instead of cells. Look for different solutions
 
 or
 
-See it live: [Conway's Game of Life](https://willwile4.githut.io/conway.html)
+See it live: [Conway's Game of Life](https://willwile4.github.io/conway.html)
 
 3. Select inital population by turning cells blue.
 4. Click start and watch it go!
